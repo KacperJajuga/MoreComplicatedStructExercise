@@ -18,6 +18,7 @@ void pobierzIloscStudentow(int &ilosc);
 void pobierzStudentow(STUDENT tab[], int ilosc);
 void losowanieOcen(STUDENT tab[], int ilosc);
 void sredniaStudenta(STUDENT tab[], int ilosc);
+double sredniaWszystkichStudentow(STUDENT tab[], int ilosc);
 
 int main()
 {
@@ -28,6 +29,8 @@ int main()
     pobierzStudentow(tablica, N);
     losowanieOcen(tablica, N);
     sredniaStudenta(tablica, N);
+    double srednia_wszystkich;
+    srednia_wszystkich = sredniaWszystkichStudentow(tablica, N);
 }
 
 void pobierzIloscStudentow(int &ilosc) {
@@ -72,4 +75,13 @@ void sredniaStudenta(STUDENT tab[], int ilosc) {
         }
         tab[i].srednia_ocen = suma / rozmiar;
     }
+}
+
+double sredniaWszystkichStudentow(STUDENT tab[], int ilosc) {
+    double srednia = 0;
+    for (int i = 0; i < ilosc; i++) {
+        srednia += tab[i].srednia_ocen;
+    }
+    srednia = srednia / ilosc;
+    return srednia;
 }
