@@ -18,10 +18,17 @@ void pobierzIloscStudentow(int &ilosc);
 void pobierzStudentow(STUDENT tab[], int ilosc);
 void losowanieOcen(STUDENT tab[], int ilosc);
 void sredniaStudenta(STUDENT tab[], int ilosc);
+void wyswietlanieStudentow(STUDENT tab[], int ilosc);
 double sredniaWszystkichStudentow(STUDENT tab[], int ilosc);
 
 int main()
 {
+    cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "|                         Program wyswietli liste studentow oraz wylosowane dla nich oceny.                         |" << endl;
+    cout << "|               Zostanie wyswietlona rowniez srednia ocen kazdego studenta oraz wszystkich studentow.               |" << endl;
+    cout << "|     Dane studentow, ktorzy uzyskali najwieksza srednia, zostana wyswietlone na ekranie oraz zapisane do pliku.    |" << endl;
+    cout << "| Program umozliwi wyszukiwanie konkretnego studenta po wpisaniu pelnego imienia i nazwiska poszukiwanego studenta. |" << endl;
+    cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
     srand(time(NULL));
     int N;
     pobierzIloscStudentow(N);
@@ -29,8 +36,11 @@ int main()
     pobierzStudentow(tablica, N);
     losowanieOcen(tablica, N);
     sredniaStudenta(tablica, N);
+    wyswietlanieStudentow(tablica, N);
     double srednia_wszystkich;
     srednia_wszystkich = sredniaWszystkichStudentow(tablica, N);
+    cout << "\nSrednia wszystkich studentow w bazie danych to: " << srednia_wszystkich << endl;
+
 }
 
 void pobierzIloscStudentow(int &ilosc) {
@@ -74,6 +84,17 @@ void sredniaStudenta(STUDENT tab[], int ilosc) {
             suma += tab[i].oceny[j];
         }
         tab[i].srednia_ocen = suma / rozmiar;
+    }
+}
+
+void wyswietlanieStudentow(STUDENT tab[], int ilosc) {
+    cout << "W bazie danych znajduje sie " << ilosc << " studentow" << endl;
+    for (int i = 0; i < ilosc; i++) {
+        cout << "\n\nImie i nazwisko " << i+1 << ". studenta w bazie danych to: " << tab[i].imie << " " << tab[i].nazwisko << endl;
+        for (int j = 0; j < rozmiar; j++) {
+            cout << "Ocena " << j+1 << " tego studenta to: " << tab[i].oceny[j] << endl;
+        }
+        cout << "Srednia ocen tego studenta to: " << tab[i].srednia_ocen << endl;
     }
 }
 
