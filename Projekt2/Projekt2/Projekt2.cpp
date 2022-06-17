@@ -22,10 +22,6 @@ void wyswietlanieStudentow(STUDENT tab[], int ilosc);
 double sredniaWszystkichStudentow(STUDENT tab[], int ilosc);
 int iloscStudentowPowyzejSredniej(STUDENT tab[], int ilosc, double srednia);
 void studenciNajwyzszaSrednia(STUDENT tab[], int ilosc);
-void kopiowanieTablicy(STUDENT tabl[], STUDENT pos_tab[], int liczba);
-void sortowanieTablicy(STUDENT pos_tab[], int poczatekTab, int koniecTab);
-int dzielenieTablicy(STUDENT tab[], int poczatekTab, int koniecTab);
-void zamienMiejscami(STUDENT &a, STUDENT &b);
 
 int main()
 {
