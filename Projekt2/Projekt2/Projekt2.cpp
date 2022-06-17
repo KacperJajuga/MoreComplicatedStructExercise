@@ -21,6 +21,11 @@ void sredniaStudenta(STUDENT tab[], int ilosc);
 void wyswietlanieStudentow(STUDENT tab[], int ilosc);
 double sredniaWszystkichStudentow(STUDENT tab[], int ilosc);
 int iloscStudentowPowyzejSredniej(STUDENT tab[], int ilosc, double srednia);
+void studenciNajwyzszaSrednia(STUDENT tab[], int ilosc);
+void kopiowanieTablicy(STUDENT tabl[], STUDENT pos_tab[], int liczba);
+void sortowanieTablicy(STUDENT pos_tab[], int poczatekTab, int koniecTab);
+int dzielenieTablicy(STUDENT tab[], int poczatekTab, int koniecTab);
+void zamienMiejscami(STUDENT &a, STUDENT &b);
 
 int main()
 {
@@ -43,6 +48,7 @@ int main()
     cout << "\nSrednia wszystkich studentow w bazie danych to: " << srednia_wszystkich << endl;
     powyzej_sredniej = iloscStudentowPowyzejSredniej(tablica, N, srednia_wszystkich);
     cout << "\nSrednia wieksza, niz srednia wszystkich studentow zdobylo " << powyzej_sredniej << " studentow." << endl;
+    studenciNajwyzszaSrednia(tablica, N);
 }
 
 void pobierzIloscStudentow(int &ilosc) {
@@ -70,10 +76,9 @@ void pobierzStudentow(STUDENT tab[], int ilosc) {
 }
 
 void losowanieOcen(STUDENT tab[], int ilosc) {
-    double tab_oceny[7] = {2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5};
     for (int i = 0; i < ilosc; i++) {
         for (int j = 0; j < rozmiar; j++) {
-            tab[i].oceny[j] = tab_oceny[rand() % 7];
+            tab[i].oceny[j] = rand() % 7 * 0.5 + 2;
         }
     }
 }
@@ -117,4 +122,25 @@ int iloscStudentowPowyzejSredniej(STUDENT tab[], int ilosc, double srednia) {
         }
     }
     return suma;
+}
+
+void studenciNajwyzszaSrednia(STUDENT tab[], int ilosc) {
+    cout << "Wyswietlanie i zapisywanie do pliku studentow, ktorzy zdobyli srednia z przedzialu <4.0, 5.0>." << endl;
+    ofstream plik_z_wynikami;
+    plik_z_wynikami.open("wyniki.txt");
+    if (plik_z_wynikami.is_open()) {
+        for (int i = 0; i < ilosc; i++) {
+            if (tab[i].srednia_ocen >= 4.0 && tab[i].srednia_ocen <= 5.0) {
+                cout << "\n\nImie i nazwisko " << i + 1 << ". studenta w bazie danych to: " << tab[i].imie << " " << tab[i].nazwisko << endl;
+                for (int j = 0; j < rozmiar; j++) {
+                    cout << "Ocena " << j + 1 << " tego studenta to: " << tab[i].oceny[j] << endl;
+                }
+                cout << "Srednia ocen tego studenta to: " << tab[i].srednia_ocen << endl;
+            }
+        }
+    }
+    else {
+        cout << "Blad otwierania pliku!" << endl;
+    }
+    plik_z_wynikami.close();
 }
