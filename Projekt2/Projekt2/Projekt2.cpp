@@ -22,6 +22,7 @@ void wyswietlanieStudentow(STUDENT tab[], int ilosc);
 double sredniaWszystkichStudentow(STUDENT tab[], int ilosc);
 int iloscStudentowPowyzejSredniej(STUDENT tab[], int ilosc, double srednia);
 void studenciNajwyzszaSrednia(STUDENT tab[], int ilosc);
+void szukanieStudenta(STUDENT tab[], int ilosc);
 
 int main()
 {
@@ -45,6 +46,7 @@ int main()
     powyzej_sredniej = iloscStudentowPowyzejSredniej(tablica, N, srednia_wszystkich);
     cout << "\nSrednia wieksza, niz srednia wszystkich studentow zdobylo " << powyzej_sredniej << " studentow." << endl;
     studenciNajwyzszaSrednia(tablica, N);
+    szukanieStudenta(tablica, N);
 }
 
 void pobierzIloscStudentow(int &ilosc) {
@@ -139,4 +141,80 @@ void studenciNajwyzszaSrednia(STUDENT tab[], int ilosc) {
         cout << "Blad otwierania pliku!" << endl;
     }
     plik_z_wynikami.close();
+}
+
+void szukanieStudenta(STUDENT tab[], int ilosc) {
+    int wybor;
+    char jeszcze_raz = 'n', znaleziono;
+    string imie_studenta;
+    string nazwisko_studenta;
+    do {
+        znaleziono = 'n';
+        cout << "Za pomoca jakich danych chcesz wyszukac studenta? " << endl;
+        cout << "1. Imie" << endl;
+        cout << "2. Nazwisko" << endl;
+        cout << "3. Imie i nazwisko" << endl;
+        cout << "Wpisz numer wybranej opcji: ";
+        cin >> wybor;
+        switch (wybor) {
+        case 1:
+            cout << "Podaj imie studenta, ktorego dane chcesz wyswietlic: ";
+            cin >> imie_studenta;
+            for (int i = 0; i < ilosc; i++) {
+                if (imie_studenta == tab[i].imie) {
+                    cout << "\n\nZnaleziono studenta numer " << i + 1 << ", a imie i nazwisko to: " << tab[i].imie << " " << tab[i].nazwisko << endl;
+                    for (int j = 0; j < rozmiar; j++) {
+                        cout << "Ocena " << j + 1 << " szukanego studenta to: " << tab[i].oceny[j] << endl;
+                    }
+                    cout << "Srednia ocen szukanego studenta to: " << tab[i].srednia_ocen << endl;
+                    znaleziono = 't';
+                }
+            }
+            if (znaleziono == 'n') {
+                cout << "Nie znaleziono studenta o podanym imieniu!" << endl;
+            }
+            break;
+        case 2:
+            cout << "Podaj nazwisko studenta, ktorego dane chcesz wyswietlic: ";
+            cin >> nazwisko_studenta;
+            for (int i = 0; i < ilosc; i++) {
+                if (nazwisko_studenta == tab[i].nazwisko) {
+                    cout << "\n\nZnaleziono studenta numer " << i + 1 << ", a imie i nazwisko to: " << tab[i].imie << " " << tab[i].nazwisko << endl;
+                    for (int j = 0; j < rozmiar; j++) {
+                        cout << "Ocena " << j + 1 << " szukanego studenta to: " << tab[i].oceny[j] << endl;
+                    }
+                    cout << "Srednia ocen szukanego studenta to: " << tab[i].srednia_ocen << endl;
+                    znaleziono = 't';
+                }
+            }
+            if (znaleziono == 'n') {
+                cout << "Nie znaleziono studenta o podanym nazwisku!" << endl;
+            }
+            break;
+        case 3:
+            cout << "Podaj imie studenta, ktorego dane chcesz wyswietlic: ";
+            cin >> imie_studenta;
+            cout << "Podaj nazwisko studenta, ktorego dane chcesz wyswietlic: ";
+            cin >> nazwisko_studenta;
+            for (int i = 0; i < ilosc; i++) {
+                if (imie_studenta == tab[i].imie && nazwisko_studenta == tab[i].nazwisko) {
+                    cout << "\n\nZnaleziono studenta numer " << i + 1 << ", a imie i nazwisko to: " << tab[i].imie << " " << tab[i].nazwisko << endl;
+                    for (int j = 0; j < rozmiar; j++) {
+                        cout << "Ocena " << j + 1 << " szukanego studenta to: " << tab[i].oceny[j] << endl;
+                    }
+                    cout << "Srednia ocen szukanego studenta to: " << tab[i].srednia_ocen << endl;
+                    znaleziono = 't';
+                }
+            }
+            if (znaleziono == 'n') {
+                cout << "Nie znaleziono studenta o podanym imieniu i nazwisku!" << endl;
+            }
+            break;
+        default:
+            cout << "Podany zostal bledny numer opcji!" << endl;
+            break;
+        }
+        cout << "Czy chcesz ponowic wyszukiwanie? (T/N)";
+        cin >> jeszcze_raz;
+    } while (jeszcze_raz == 't' || jeszcze_raz == 'T');
 }
