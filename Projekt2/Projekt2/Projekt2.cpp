@@ -20,6 +20,7 @@ void losowanieOcen(STUDENT tab[], int ilosc);
 void sredniaStudenta(STUDENT tab[], int ilosc);
 void wyswietlanieStudentow(STUDENT tab[], int ilosc);
 double sredniaWszystkichStudentow(STUDENT tab[], int ilosc);
+int iloscStudentowPowyzejSredniej(STUDENT tab[], int ilosc, double srednia);
 
 int main()
 {
@@ -30,7 +31,7 @@ int main()
     cout << "| Program umozliwi wyszukiwanie konkretnego studenta po wpisaniu pelnego imienia i nazwiska poszukiwanego studenta. |" << endl;
     cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
     srand(time(NULL));
-    int N;
+    int N, powyzej_sredniej;
     pobierzIloscStudentow(N);
     STUDENT* tablica = new STUDENT[N];
     pobierzStudentow(tablica, N);
@@ -40,7 +41,8 @@ int main()
     double srednia_wszystkich;
     srednia_wszystkich = sredniaWszystkichStudentow(tablica, N);
     cout << "\nSrednia wszystkich studentow w bazie danych to: " << srednia_wszystkich << endl;
-
+    powyzej_sredniej = iloscStudentowPowyzejSredniej(tablica, N, srednia_wszystkich);
+    cout << "\nSrednia wieksza, niz srednia wszystkich studentow zdobylo " << powyzej_sredniej << " studentow." << endl;
 }
 
 void pobierzIloscStudentow(int &ilosc) {
@@ -105,4 +107,14 @@ double sredniaWszystkichStudentow(STUDENT tab[], int ilosc) {
     }
     srednia = srednia / ilosc;
     return srednia;
+}
+
+int iloscStudentowPowyzejSredniej(STUDENT tab[], int ilosc, double srednia) {
+    int suma = 0;
+    for (int i = 0; i < ilosc; i++) {
+        if (tab[i].srednia_ocen > srednia) {
+            suma++;
+        }
+    }
+    return suma;
 }
