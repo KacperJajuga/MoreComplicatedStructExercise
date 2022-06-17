@@ -32,6 +32,8 @@ int main()
     cout << "|     Dane studentow, ktorzy uzyskali najwieksza srednia, zostana wyswietlone na ekranie oraz zapisane do pliku.    |" << endl;
     cout << "| Program umozliwi wyszukiwanie konkretnego studenta po wpisaniu pelnego imienia i nazwiska poszukiwanego studenta. |" << endl;
     cout << "---------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "Nacisnij ENTER, aby rozpoczac dzialanie programu..." << endl;
+    cin.get();
     srand(time(NULL));
     int N, powyzej_sredniej;
     pobierzIloscStudentow(N);
@@ -39,13 +41,24 @@ int main()
     pobierzStudentow(tablica, N);
     losowanieOcen(tablica, N);
     sredniaStudenta(tablica, N);
+    cout << "\nNacisnij ENTER, by wyswietlic wszystkich studentow na liscie..." << endl;
+    cin.get();
+    cin.get(); //z jakiegos powodu program potrzebuje dwoch instrukcji cin.get();, aby zatrzymac dzialanie
     wyswietlanieStudentow(tablica, N);
     double srednia_wszystkich;
     srednia_wszystkich = sredniaWszystkichStudentow(tablica, N);
-    cout << "\nSrednia wszystkich studentow w bazie danych to: " << srednia_wszystkich << endl;
+    cout << "\nNacisnij ENTER, by wyswietlic srednia wszystkich studentow na liscie..." << endl;
+    cin.get();
+    cout << "Srednia wszystkich studentow na liscie to: " << srednia_wszystkich << endl;
     powyzej_sredniej = iloscStudentowPowyzejSredniej(tablica, N, srednia_wszystkich);
-    cout << "\nSrednia wieksza, niz srednia wszystkich studentow zdobylo " << powyzej_sredniej << " studentow." << endl;
+    cout << "\nNacisnij ENTER, by wyswietlic ilu studentow zdobylo srednia wieksza niz srednia wszystkich studentow..." << endl;
+    cin.get();
+    cout << "Srednia wieksza, niz srednia wszystkich studentow zdobylo " << powyzej_sredniej << " studentow." << endl;
+    cout << "\nNacisnij ENTER, by wyswietlic najlepszych studentow na liscie..." << endl;
+    cin.get();
     studenciNajwyzszaSrednia(tablica, N);
+    cout << "\n\nNacisnij ENTER, by rozpoczac szukanie studentow..." << endl;
+    cin.get();
     szukanieStudenta(tablica, N);
 }
 
@@ -93,9 +106,9 @@ void sredniaStudenta(STUDENT tab[], int ilosc) {
 }
 
 void wyswietlanieStudentow(STUDENT tab[], int ilosc) {
-    cout << "W bazie danych znajduje sie " << ilosc << " studentow" << endl;
+    cout << "Na liscie znajduje sie " << ilosc << " studentow" << endl;
     for (int i = 0; i < ilosc; i++) {
-        cout << "\n\nImie i nazwisko " << i+1 << ". studenta w bazie danych to: " << tab[i].imie << " " << tab[i].nazwisko << endl;
+        cout << "\n\nImie i nazwisko " << i+1 << ". studenta na liscie to: " << tab[i].imie << " " << tab[i].nazwisko << endl;
         for (int j = 0; j < rozmiar; j++) {
             cout << "Ocena " << j+1 << " tego studenta to: " << tab[i].oceny[j] << endl;
         }
@@ -129,7 +142,7 @@ void studenciNajwyzszaSrednia(STUDENT tab[], int ilosc) {
     if (plik_z_wynikami.is_open()) {
         for (int i = 0; i < ilosc; i++) {
             if (tab[i].srednia_ocen >= 4.0 && tab[i].srednia_ocen <= 5.0) {
-                cout << "\n\nImie i nazwisko " << i + 1 << ". studenta w bazie danych to: " << tab[i].imie << " " << tab[i].nazwisko << endl;
+                cout << "\n\nImie i nazwisko " << i + 1 << ". studenta na liscie to: " << tab[i].imie << " " << tab[i].nazwisko << endl;
                 for (int j = 0; j < rozmiar; j++) {
                     cout << "Ocena " << j + 1 << " tego studenta to: " << tab[i].oceny[j] << endl;
                 }
@@ -158,7 +171,7 @@ void szukanieStudenta(STUDENT tab[], int ilosc) {
         cin >> wybor;
         switch (wybor) {
         case 1:
-            cout << "Podaj imie studenta, ktorego dane chcesz wyswietlic: ";
+            cout << "\n\nPodaj imie studenta, ktorego dane chcesz wyswietlic: ";
             cin >> imie_studenta;
             for (int i = 0; i < ilosc; i++) {
                 if (imie_studenta == tab[i].imie) {
@@ -175,7 +188,7 @@ void szukanieStudenta(STUDENT tab[], int ilosc) {
             }
             break;
         case 2:
-            cout << "Podaj nazwisko studenta, ktorego dane chcesz wyswietlic: ";
+            cout << "\n\nPodaj nazwisko studenta, ktorego dane chcesz wyswietlic: ";
             cin >> nazwisko_studenta;
             for (int i = 0; i < ilosc; i++) {
                 if (nazwisko_studenta == tab[i].nazwisko) {
@@ -192,7 +205,7 @@ void szukanieStudenta(STUDENT tab[], int ilosc) {
             }
             break;
         case 3:
-            cout << "Podaj imie studenta, ktorego dane chcesz wyswietlic: ";
+            cout << "\n\nPodaj imie studenta, ktorego dane chcesz wyswietlic: ";
             cin >> imie_studenta;
             cout << "Podaj nazwisko studenta, ktorego dane chcesz wyswietlic: ";
             cin >> nazwisko_studenta;
@@ -211,10 +224,10 @@ void szukanieStudenta(STUDENT tab[], int ilosc) {
             }
             break;
         default:
-            cout << "Podany zostal bledny numer opcji!" << endl;
+            cout << "\n\nPodany zostal bledny numer opcji!" << endl;
             break;
         }
-        cout << "Czy chcesz ponowic wyszukiwanie? (T/N)";
+        cout << "\nCzy chcesz ponowic wyszukiwanie? (T/N): ";
         cin >> jeszcze_raz;
     } while (jeszcze_raz == 't' || jeszcze_raz == 'T');
 }
